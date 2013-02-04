@@ -24,6 +24,12 @@ int main(){
 	chords[3].cluster = scale4;
 	chords[3].time = 1;
 	int i, j;
+	char *note = midi_to_string(66, FLAT);
+
+	for(i = 0; i < 50; i++){
+	printf("the note %i is %s\n",i, midi_to_string(i, SHARP));	
+	}
+
 	for (j = 0; j < 4; j++){
 		for (i = 0; i < 7; i++){printf("%i\n",*(chords[j].cluster + i));}
 	printf("\n");
@@ -34,6 +40,7 @@ int main(){
 	double dur = 0.25;
 	double score_time = 0;
 	double counter = 0;
+
 	/*
 	while(score_time < 24.0){
 		if(counter >= chords[crnt_chrd].time){

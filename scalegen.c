@@ -1,29 +1,75 @@
-typedef struct{
-	int *cluster;
-	int size;
-	int time;
-} progression;
-
-typedef struct{
-	int *cluster;
-	int size;
-	int time;
-} cluster;
-
-enum scale_types {
-	MAJOR,
-	MINOR
-};
-
-enum keys {
-	KEY_C, KEY_Cis, KEY_Ces,
-	KEY_D, KEY_Dis, KEY_Des,
-	KEY_E, KEY_Eis, KEY_Ees,
-	KEY_F, KEY_Fis, KEY_Fes,
-	KEY_G, KEY_Gis, KEY_Ges,
-	KEY_A, KEY_Ais, KEY_Aes,
-	KEY_B, KEY_Bis, KEY_Bes
-};
+#include "scalegen.h"
+#include <stdio.h>
+#include <stdlib.h>
+char* midi_to_string(int n, int accidental){
+	int note = n % 12;
+	int octave = (n / 12) - 1;
+	int i;
+	char *msg;
+	msg = malloc(4);
+	if(note == 0){
+		sprintf(msg, "C-%i", octave);
+	}else
+	if(note == 2){
+		sprintf(msg, "D-%i", octave);
+	}else
+	if(note == 4){
+		sprintf(msg, "E-%i", octave);
+	}else
+	if(note == 5){
+		sprintf(msg, "F-%i", octave);
+	}else
+	if(note == 7){
+		sprintf(msg, "G-%i", octave);
+	}else
+	if(note == 9){
+		sprintf(msg, "A-%i", octave);
+	}else
+	if(note == 11){
+		sprintf(msg, "B-%i", octave);
+	}else
+	if(note == 1 && accidental==SHARP){
+		sprintf(msg, "C#%i", octave);
+	}else
+	if(note == 3 && accidental==SHARP){
+		sprintf(msg, "D#%i", octave);
+	}else
+	if(note == 5 && accidental==SHARP){
+		sprintf(msg, "E#%i", octave);
+	}else
+	if(note == 6 && accidental==SHARP){
+		sprintf(msg, "F#%i", octave);
+	}else
+	if(note == 8 && accidental==SHARP){
+		sprintf(msg, "G#%i", octave);
+	}else
+	if(note == 10 && accidental==SHARP){
+		sprintf(msg, "A#%i", octave);
+	}else
+	if(note == 1 && accidental==FLAT){
+		sprintf(msg, "Db%i", octave);
+	}else
+	if(note == 3 && accidental==FLAT){
+		sprintf(msg, "Eb%i", octave);
+	}else
+	if(note == 4 && accidental==FLAT){
+		sprintf(msg, "Fb%i", octave);
+	}else
+	if(note == 6 && accidental==FLAT){
+		sprintf(msg, "Gb%i", octave);
+	}else
+	if(note == 8 && accidental==FLAT){
+		sprintf(msg, "Ab%i", octave);
+	}else
+	if(note == 10 && accidental==FLAT){
+		sprintf(msg, "Bb%i", octave);
+	}else{
+		sprintf(msg, "000", octave);
+	}
+	
+	//msg = "hi there!";
+	return msg;
+}
 
 int pick_a_note(int *scale){
 	int n = 0;

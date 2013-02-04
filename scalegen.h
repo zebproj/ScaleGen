@@ -19,8 +19,14 @@ enum keys {
 	KEY_B, KEY_Bis, KEY_Bes
 };
 
+enum accidentals{
+	FLAT, SHARP, EN_FLAT, EN_SHARP
+};
+
 int pick_a_note(int *scale);
 
 void bias_scale(int **scale, int notes, int bias);
 
 void make_scale(int *scale, int key, int type);
+
+char* midi_to_string(int n, int accidental);
