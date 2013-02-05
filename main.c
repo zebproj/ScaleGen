@@ -1,60 +1,59 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "scalegen.h"
+/*
+scalegen: a simple scale generator library.
+This is a WIP library for generating many types of scales for use in algorithmic
+composition in C. 
 
+At the moment, the make_scale() function can only write 7-note scales to 
+arrays of ints as MIDI note numbers.
+
+In the future, I hope to make this function write to a more flexible struct called
+"cluster," that will allow for scales with more or less notes in it.
+*/
 int main(){
-	srand(time(NULL));
-	progression chords[4];
+	cluster chords[4];
 
 	int scale1[7];
 	int scale2[7];
 	int scale3[7];
 	int scale4[7];
 
-	make_scale(scale1, KEY_Ees, MAJOR);
+	make_scale(scale1, KEY_C, MAJOR, 4);
 	chords[0].cluster = scale1;
 	chords[0].time = 2;
-	make_scale(scale2, KEY_E, MAJOR);
+	make_scale(scale2, KEY_Des, MAJOR, -1);
 	chords[1].cluster = scale2;
 	chords[1].time = 1;
-	make_scale(scale3, KEY_F, MAJOR);
+	make_scale(scale3, KEY_B, MAJOR, 5) ;
 	chords[2].cluster = scale3;
 	chords[2].time = 2;
-	make_scale(scale4, KEY_Fis, MAJOR);
+	make_scale(scale4, KEY_E, MINOR, 3);
 	chords[3].cluster = scale4;
 	chords[3].time = 1;
 	int i, j;
 	char *note = midi_to_string(66, FLAT);
 
-	for(i = 0; i < 50; i++){
-	printf("the note %i is %s\n",i, midi_to_string(i, SHARP));	
-	}
-
-	for (j = 0; j < 4; j++){
-		for (i = 0; i < 7; i++){printf("%i\n",*(chords[j].cluster + i));}
-	printf("\n");
-	}
-	int vals[] = {1, 2, 3, 4, 5};
-	int numchords = 4;
-	int crnt_chrd = 0;
-	double dur = 0.25;
-	double score_time = 0;
-	double counter = 0;
-
-	/*
-	while(score_time < 24.0){
-		if(counter >= chords[crnt_chrd].time){
-			crnt_chrd = (crnt_chrd + 1) % numchords;
-			counter = 0;
+	printf("\033[1mScales with Flats:\033[0m \n");
+	for (j = 0; j < 2; j++){
+		printf("Scale %i\n", (j+1));
+		for (i = 0; i < 7; i++){
+			printf("%s\n",
+					midi_to_string(*(chords[j].cluster + i), FLAT));
 		}
-		printf("i1\t%g\t%g\t%i\t\n",
-				score_time,
-				dur,
-				pick_a_note(chords[crnt_chrd].cluster)
-				);
-		score_time += dur;
-		counter += dur;
-	}	
-	*/
+		printf("\n");
+	}
+	
+	printf("\033[1mScales with Sharps: \033[0m\n");
+	for (j = 2; j < 4; j++){
+		printf("Scale %i\n", (j+1));
+		for (i = 0; i < 7; i++){
+			printf("%s\n",
+					midi_to_string(*(chords[j].cluster + i), SHARP));
+		}
+		printf("\n");
+	}
+
 	return 0;
 }
