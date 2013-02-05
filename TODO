@@ -1,0 +1,8 @@
+TODO:
+
+add scales...
+
+new idea: make cluster struct with count and int array of 7. copy 7-note scales 
+create function to resize scale...
+
+add a make_chord function
